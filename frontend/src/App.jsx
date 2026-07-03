@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import ProductList from "./pages/ProductList";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import './App.css';
 
 function App() {
   return (

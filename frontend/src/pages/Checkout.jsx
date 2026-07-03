@@ -3,7 +3,6 @@ import { useCart } from "../context/CartContext";
 
 function Checkout() {
   const { cartItems, cartTotal, clearCart } = useCart();
-
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -21,68 +20,48 @@ function Checkout() {
       alert("Please fill in all fields.");
       return;
     }
-
     alert("Order placed successfully!");
-
     clearCart();
-
-    setFormData({
-      name: "",
-      address: "",
-    });
+    setFormData({ name: "", address: "" });
   };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "500px", margin: "auto" }}>
-      <h1>Checkout</h1>
+    <div className="page-container" style={{ maxWidth: "500px" }}>
+      <h1 style={{ marginBottom: "20px", color: "#1f2937" }}>📦 Checkout</h1>
 
-      <p>
-        <strong>Total Amount:</strong> ₹{cartTotal}
-      </p>
+      {cartItems.length === 0 ? (
+        <p style={{ fontSize: "18px" }}>Your cart is empty. Add items before checking out.</p>
+      ) : (
+        <>
+          <div className="cart-card">
+            <p style={{ fontSize: "20px", marginBottom: "0" }}>
+              <strong>Total Amount:</strong>{" "}
+              <span style={{ color: "#2563eb", fontWeight: "bold" }}>₹{cartTotal}</span>
+            </p>
+          </div>
 
-      <input
-        type="text"
-        name="name"
-        placeholder="Full Name"
-        value={formData.name}
-        onChange={handleChange}
-        style={{
-          width: "100%",
-          padding: "10px",
-          marginBottom: "15px",
-        }}
-      />
-
-      <textarea
-        name="address"
-        placeholder="Delivery Address"
-        value={formData.address}
-        onChange={handleChange}
-        rows="4"
-        style={{
-          width: "100%",
-          padding: "10px",
-          marginBottom: "15px",
-        }}
-      />
-
-      <button
-        onClick={placeOrder}
-        style={{
-          background: "green",
-          color: "white",
-          border: "none",
-          padding: "12px 20px",
-          cursor: "pointer",
-        }}
-      >
-        Place Order
-      </button>
-
-      {cartItems.length === 0 && (
-        <p style={{ marginTop: "20px" }}>
-          Your cart is empty.
-        </p>
+          <div style={{ marginTop: "20px" }}>
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              value={formData.name}
+              onChange={handleChange}
+              style={{ width: "100%", marginBottom: "15px" }}
+            />
+            <textarea
+              name="address"
+              placeholder="Delivery Address"
+              value={formData.address}
+              onChange={handleChange}
+              rows="4"
+              style={{ width: "100%", marginBottom: "20px" }}
+            />
+            <button className="checkout-btn" onClick={placeOrder} style={{ width: "100%" }}>
+              Place Order
+            </button>
+          </div>
+        </>
       )}
     </div>
   );
